@@ -1,0 +1,133 @@
+#:import C kivy.utils.get_color_from_hex
+#:import Clock kivy.clock
+#:include gui/discoverscreen.kv
+
+MainScreenManager:
+    MainScreen:
+
+<MainScreen>:
+    name: "main"
+    md_bg_color: app.theme_cls.primary_light
+
+    MDBoxLayout:
+        orientation: 'vertical'
+
+        MDTopAppBar:
+            id: screen_title
+            title: "Player"
+            left_action_items: [["menu", lambda x: root.open_close_rail()]]
+            right_action_items: [["information-outline", lambda x: x]]
+
+        MDBoxLayout:
+            size_hint_y: None
+            height: dp(32)
+            md_bg_color: app.theme_cls.primary_dark
+
+            MDLabel:
+                text: f"[font=Wildicon]{root.cust_icons['morning']}[/font]"
+                halign: 'center'
+                theme_text_color: "Custom"
+                text_color: C('#FFFFFF')
+                font_size: '16sp'
+                markup: True
+
+            MDLabel:
+                text: f"[font=Wildicon]{root.cust_icons['evening']}[/font]"
+                halign: 'center'
+                theme_text_color: "Custom"
+                text_color: C('#FFFFFF')
+                font_size: '16sp'
+                markup: True
+
+            MDLabel:
+                text: f"[font=Wildicon]{root.cust_icons['afternoon']}[/font]"
+                halign: 'center'
+                theme_text_color: "Custom"
+                text_color: C('#FFFFFF')
+                font_size: '16sp'
+                markup: True
+
+        MDBoxLayout:
+            orientation: 'horizontal'
+
+            MDBoxLayout:
+                id: rail
+                orientation: 'vertical'
+                padding: '0dp', '24dp'
+                spacing: '24dp'
+                size_hint_x: None
+                width: '72dp'
+                opacity: 1
+                md_bg_color: app.theme_cls.primary_color
+
+                BadgeButton:
+                    id: discover_button
+                    font_name: 'Wildicon'
+                    pos_hint: {'center_x': 0.5}
+                    text: f"[size=32sp]{root.cust_icons['map']}[/size]"
+                    theme_text_color: "Custom"
+                    text_color: C('#FFFFFF')
+                    notifications: 0
+                    markup: True
+
+                    on_release:
+                        window_screen_manager.current = 'discover'
+                        screen_title.title = 'Discover'
+
+                BadgeButton:
+                    id: gather_button
+                    font_name: 'Wildicon'
+                    text: f"[size=32sp]{root.cust_icons['basket']}[/size]"
+                    pos_hint: {'center_x': 0.5}
+                    theme_text_color: "Custom"
+                    text_color: C('#FFFFFF')
+                    notifications: 0
+                    markup: True
+
+                Widget:
+
+            WindowScreenManager:
+                id: window_screen_manager
+                PlayerScreen:
+                    name: 'player'
+                DiscoverScreen:
+
+    MDTopAppBar:
+    MDBoxLayout:
+        padding: dp(8)
+        spacing: dp(32)
+
+        Widget:
+
+        MDIconButton:
+            icon: 'bag-personal'
+#            on_release:
+#                root.toggle_clear()
+
+
+        MDFloatLayout:
+            MDIconButton:
+                pos_hint: {'center_x': 0.5}
+                pos: self.width, self.height - dp(24)
+                icon_size: "36sp"
+                md_bg_color: app.theme_cls.primary_dark
+                icon: 'human-handsdown'
+                on_release:
+                    window_screen_manager.current = 'player'
+                    screen_title.title = 'Player'
+
+        MDIconButton:
+            icon: 'campfire'
+
+        Widget:
+
+#        Honeycombed:
+#            cols: 5
+#            Image:
+#                size_hint: None, None
+#                size: dp(155), dp(180)
+#                source: 'image/Hexagon.png'
+#            Image:
+#                size_hint: None, None
+#                size: dp(155), dp(180)
+#                source: 'image/Hexagon.png'
